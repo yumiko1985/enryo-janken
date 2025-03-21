@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>じゃんけんゲーム</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            margin-top: 50px;
+        }
+        .character img {
+            width: 200px;
+            height: auto;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            font-size: 20px;
+            padding: 10px;
+            margin: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>オリジナルキャラとじゃんけん！</h1>
+
+    <div class="game-container">
+        <div class="character">
+            <p>オリジナルキャラ</p>
+            <img id="character-hand" src="default.png" alt="キャラの手">
+        </div>
+
+        <div class="player">
+            <p>あなたの手を選んでね！</p>
+            <div class="buttons">
+                <button onclick="playJanken('グー')">👊 グー</button>
+                <button onclick="playJanken('チョキ')">✌ チョキ</button>
+                <button onclick="playJanken('パー')">🖐 パー</button>
+            </div>
+        </div>
+
+        <div class="result" id="result-text">結果はここに表示</div>
+    </div>
+
+    <script>
+        function playJanken(playerChoice) {
+            const hands = ["グー", "チョキ", "パー"];
+            const characterChoice = hands[Math.floor(Math.random() * hands.length)];
+
+            let result = "";
+            if (playerChoice === characterChoice) {
+                result = "あいこ！";
+            } else if (
+                (playerChoice === "グー" && characterChoice === "チョキ") ||
+                (playerChoice === "チョキ" && characterChoice === "パー") ||
+                (playerChoice === "パー" && characterChoice === "グー")
+            ) {
+                result = "あなたの勝ち！🎉";
+            } else {
+                result = "あなたの負け…😢";
+            }
+
+            document.getElementById("character-hand").src = `hand_${characterChoice}.png`;
+            document.getElementById("result-text").textContent = `キャラの手: ${characterChoice} → ${result}`;
+        }
+    </script>
+
+</body>
+</html>
